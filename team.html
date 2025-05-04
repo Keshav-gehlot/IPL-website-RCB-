@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team - Royal Challengers Bangalore</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/bento.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Team Page Specific Styles */
+        .team-header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .team-header h1 {
+            margin-bottom: 15px;
+        }
+        
+        .team-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .team-categories {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .team-category {
+            padding: 10px 20px;
+            background-color: var(--light-gray);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .team-category.active {
+            background-color: var(--primary-gold);
+            color: var(--primary-black);
+        }
+        
+        .team-category:hover {
+            background-color: var(--medium-gray);
+        }
+        
+        .players-grid {
+            margin-top: 40px;
+        }
+        
+        /* Using bento grid for player cards */
+        .players-grid .bento-grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+        
+        /* Custom styles for player cards in bento grid */
+        .player-bento-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background-color: var(--white);
+        }
+        
+        .player-bento-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .player-image {
+            height: 320px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .player-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .player-bento-card:hover .player-image img {
+            transform: scale(1.05);
+        }
+        
+        .player-role {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .player-info {
+            padding: 20px;
+        }
+        
+        .player-name {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: var(--primary-black);
+        }
+        
+        .player-country {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .player-country i {
+            margin-right: 5px;
+            color: var(--primary-gold);
+        }
+        
+        .player-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            text-align: center;
+            border-top: 1px solid var(--medium-gray);
+            padding-top: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+        }
+        
+        .view-profile-btn {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            padding: 8px;
+            background-color: var(--primary-black);
+            color: var(--white);
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .view-profile-btn:hover {
+            background-color: var(--primary-red);
+        }
+        
+        /* Staff Section */
+        .staff-section {
+            background-color: var(--light-gray);
+            padding: 80px 0;
+        }
+        
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .staff-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .staff-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .staff-image {
+            height: 200px;
+        }
+        
+        .staff-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .staff-info {
+            padding: 20px;
+        }
+        
+        .staff-name {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .staff-role {
+            color: var(--primary-red);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Timeline Section */
+        .timeline-section {
+            padding: 80px 0;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 40px auto 0;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-gold);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: var(--white);
+            border: 4px solid var(--primary-red);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -12px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .timeline-title {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 19px;
+            }
+        }
+    </style>
+<script src="scripts/features.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/rcb-logo.png" alt="RCB Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="team.html" class="active">Team</a></li>
+                    <li><a href="matches.html">Matches</a></li>
+                    <li><a href="stats.html">Statistics</a></li>
+                    <li><a href="news.html">News & Media</a></li>
+                    <li><a href="fanzone.html">Fan Zone</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Team Header Section -->
+        <section class="team-header">
+            <div class="container">
+                <h1>RCB SQUAD</h1>
+                <p>Meet the warriors who represent Royal Challengers Bangalore in the Indian Premier League. A perfect blend of experience, youth, and extraordinary talent.</p>
+            </div>
+        </section>
+
+        <!-- Players Section -->
+        <section class="players-section">
+            <div class="container">
+                <div class="team-categories">
+                    <button class="team-category active" data-category="all">All Players</button>
+                    <button class="team-category" data-category="batsman">Batsmen</button>
+                    <button class="team-category" data-category="bowler">Bowlers</button>
+                    <button class="team-category" data-category="all-rounder">All-rounders</button>
+                    <button class="team-category" data-category="wicket-keeper">Wicket Keepers</button>
+                </div>
+
+                <div class="players-grid">
+                    <div class="bento-grid">
+                    <!-- Batsmen -->
+                    <div class="bento-card bento-card-featured player-bento-card" data-category="batsman">
+                       <span class="bento-badge">Star Player</span>
+                       <div class="bento-card-image">
+                            <img src="images/virat-kohli.jpg" alt="Virat Kohli" onerror="this.onerror=null;this.src='images/fan1.jpg';this.alt='RCB Player';">
+                        </div>
+                       <div class="bento-card-content">
+                           <div>
+                               <h3 class="bento-card-title">Virat Kohli</h3>
+                               <div class="player-country"><i class="fas fa-globe"></i> India</div>
+                               <p class="bento-card-text">Former captain and leading run-scorer for RCB</p>
+                           </div>
+                            <div class="player-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">223</span>
+                                    <span class="stat-label">Matches</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">7263</span>
+                                    <span class="stat-label">Runs</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">143.1</span>
+                                    <span class="stat-label">S/R</span>
+                                </div>
+                            </div>
+                           <div class="bento-card-footer">
+                               <a href="#" class="bento-btn bento-btn-primary">View Profile</a>
+                           </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Captain -->
+                    <div class="bento-card bento-card-tall bento-card-primary player-bento-card" data-category="batsman">
+                       <span class="bento-badge bento-badge-secondary">Captain</span>
+                       <div class="bento-card-content">
+                           <div>
+                               <h3 class="bento-card-title">Faf du Plessis</h3>
+                               <div class="player-country"><i class="fas fa-globe"></i> South Africa</div>
+                               <p class="bento-card-text">Current captain leading the team with strategic gameplay and powerful batting performances.</p>
+                           </div>
+                            <div class="player-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">116</span>
+                                    <span class="stat-label">Matches</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">3403</span>
+                                    <span class="stat-label">Runs</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">134.7</span>
+                                    <span class="stat-label">S/R</span>
+                                </div>
+                            </div>
+                           <div class="bento-card-footer">
+                               <a href="#" class="bento-btn bento-btn-outline">View Profile</a>
+                           </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Wicket Keeper -->
+                    <div class="bento-card bento-card-medium player-bento-card" data-category="wicket-keeper">
+                       <div class="bento-card-image">
+                            <img src="images/dinesh-karthik.jpg" alt="Dinesh Karthik" onerror="this.onerror=null;this.src='images/fan1.jpg';this.alt='RCB Player';">
+                       </div>
+                       <div class="bento-card-content">
+                           <div>
+                               <h3 class="bento-card-title">Dinesh Karthik</h3>
+                               <div class="player-country"><i class="fas fa-globe"></i> India</div>
+                           </div>
+                            <div class="player-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">242</span>
+                                    <span class="stat-label">Matches</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">4376</span>
+                                    <span class="stat-label">Runs</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">132.7</span>
+                                    <span class="stat-label">S/R</span>
+                                </div>
+                            </div>
+                           <div class="bento-card-footer">
+                               <a href="#" class="bento-btn bento-btn-primary">View Profile</a>
+                           </div>
+                        </div>
+                    </div>
+                      
+                      <!-- Bowler -->
+                      <div class="bento-card bento-card-small bento-card-secondary player-bento-card" data-category="bowler">
+                        <div class="bento-card-content">
+                            <div>
+                                <h3 class="bento-card-title">Mohammed Siraj</h3>
+                                <div class="player-country"><i class="fas fa-globe"></i> India</div>
+                            </div>
+                            <div class="player-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">93</span>
+                                    <span class="stat-label">Matches</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">121</span>
+                                    <span class="stat-label">Wickets</span>
+                                </div>
+                            </div>
+                            <div class="bento-card-footer">
+                                <a href="#" class="bento-btn bento-btn-outline">View Profile</a>
+                            </div>
+                        </div>
+                      </div>
+                      
+                      <!-- All-Rounder -->
+                      <div class="bento-card bento-card-small player-bento-card" data-category="all-rounder">
+                        <div class="bento-card-content">
+                            <div>
+                                <h3 class="bento-card-title">Glenn Maxwell</h3>
+                                <div class="player-country"><i class="fas fa-globe"></i> Australia</div>
+                            </div>
+                            <div class="player-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">124</span>
+                                    <span class="stat-label">Matches</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">2719</span>
+                                    <span class="stat-label">Runs</span>
+                                </div>
+                            </div>
+                            <div class="bento-card-footer">
+                                <a href="#" class="bento-btn bento-btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Bowler -->
+                      <div class="bento-card bento-card-wide bento-card-dark player-bento-card" data-category="bowler">
+                        <div class="bento-card-content">
+                            <div>
+                                <h3 class="bento-card-title">Harshal Patel</h3>
+                                <div class="player-country"><i class="fas fa-globe"></i> India</div>
+                                <p class="bento-card-text">Purple Cap winner known for his exceptional death bowling skills and variations.</p>
+                            </div>
+                            <div class="player-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">97</span>
+                                    <span class="stat-label">Matches</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">130</span>
+                                    <span class="stat-label">Wickets</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">8.58</span>
+                                    <span class="stat-label">Economy</span>
+                                </div>
+                            </div>
+                            <div class="bento-card-footer">
+                                <a href="#" class="bento-btn bento-btn-outline">View Profile</a>
+                            </div>
+                        </div>
+                      </div>
+
+                      <!-- More players can be added here in bento style -->
+                      
+                      <!-- View All Players Card -->
+                      <div class="bento-card bento-card-medium bento-card-bg-image" style="background-image: url('images/fan1.jpg');" data-category="all">
+                          <div class="bento-card-content">
+                              <div>
+                                  <h3 class="bento-card-title">View All Players</h3>
+                                  <p class="bento-card-text">Explore our complete team roster with detailed statistics and profiles.</p>
+                              </div>
+                              <a href="#" class="bento-btn bento-btn-secondary">Full Team</a>
+                          </div>
+                      </div>
+
+                      <!-- All remaining player cards have been converted to bento style -->
+                      
+                      </div> <!-- Close bento-grid -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Staff Section -->
+        <section class="staff-section">
+            <div class="container">
+                <h2 class="section-title">Coaching Staff</h2>
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <div class="staff-image">
+                            <img src="images/andy-flower.jpg" alt="Andy Flower" onerror="this.onerror=null;this.src='images/fan1.jpg';this.alt='RCB Staff';">
+                        </div>
+                        <div class="staff-info">
+                            <h3 class="staff-name">Andy Flower</h3>
+                            <p class="staff-role">Head Coach</p>
+                        </div>
+                    </div>
+
+                    <div class="staff-card">
+                        <div class="staff-image">
+                            <img src="images/sanjay-bangar.jpg" alt="Sanjay Bangar" onerror="this.onerror=null;this.src='images/fan1.jpg';this.alt='RCB Staff';">
+                        </div>
+                        <div class="staff-info">
+                            <h3 class="staff-name">Sanjay Bangar</h3>
+                            <p class="staff-role">Batting Coach</p>
+                        </div>
+                    </div>
+
+                    <div class="staff-card">
+                        <div class="staff-image">
+                            <img src="https://picsum.photos/200/200?random=301" alt="Adam Griffith" onerror="this.onerror=null;this.src='images/fan1.jpg';this.alt='RCB Staff';">
+                        </div>
+                        <div class="staff-info">
+                            <h3 class="staff-name">Adam Griffith</h3>
+                            <p class="staff-role">Bowling Coach</p>
+                        </div>
+                    </div>
+
+                    <div class="staff-card">
+                        <div class="staff-image">
+                            <img src="https://picsum.photos/200/200?random=302" alt="Malolan Rangarajan" onerror="this.onerror=null;this.src='images/fan1.jpg';this.alt='RCB Staff';">
+                        </div>
+                        <div class="staff-info">
+                            <h3 class="staff-name">Malolan Rangarajan</h3>
+                            <p class="staff-role">Head of Scouting</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <div class="container">
+                <h2 class="section-title">RCB Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2008</div>
+                            <h3 class="timeline-title">The Beginning</h3>
+                            <p>Royal Challengers Bangalore was established as one of the eight founding teams of the IPL. The team was owned by businessman Vijay Mallya.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2009</div>
+                            <h3 class="timeline-title">First IPL Final</h3>
+                            <p>RCB reached their first IPL final under the captaincy of Anil Kumble, finishing as runners-up to Deccan Chargers.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2011</div>
+                            <h3 class="timeline-title">Second IPL Final</h3>
+                            <p>RCB reached their second IPL final under Daniel Vettori's captaincy, losing to Chennai Super Kings.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2013</div>
+                            <h3 class="timeline-title">Virat Kohli Named Captain</h3>
+                            <p>Virat Kohli was appointed as the full-time captain of RCB, beginning a new era for the franchise.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2016</div>
+                            <h3 class="timeline-title">Third IPL Final</h3>
+                            <p>RCB reached their third IPL final under Virat Kohli's captaincy, with Kohli scoring a record 973 runs in the season.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2021</div>
+                            <h3 class="timeline-title">End of Kohli's Captaincy</h3>
+                            <p>Virat Kohli announced he would step down as RCB captain after the 2021 season, ending his 9-year tenure as captain.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2022</div>
+                            <h3 class="timeline-title">Faf du Plessis Era Begins</h3>
+                            <p>South African star Faf du Plessis was appointed as the new captain of RCB, beginning a new chapter for the team.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2023</div>
+                            <h3 class="timeline-title">Playoff Qualification</h3>
+                            <p>RCB made a remarkable comeback in the second half of the season to qualify for the playoffs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/rcb-logo.png" alt="RCB Logo">
+                    <p>Royal Challengers Bangalore</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="matches.html">Matches</a></li>
+                        <li><a href="stats.html">Statistics</a></li>
+                        <li><a href="news.html">News & Media</a></li>
+                        <li><a href="fanzone.html">Fan Zone</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>Connect with Us</h3>
+                    <div class="social-icons">
+                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Royal Challengers Bangalore. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script>
+        // Team Category Filter Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryButtons = document.querySelectorAll('.team-category');
+            const playerCards = document.querySelectorAll('.player-card');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get selected category
+                    const selectedCategory = this.getAttribute('data-category');
+                    
+                    // Show/hide player cards based on category
+                    playerCards.forEach(card => {
+                        if (selectedCategory === 'all' || card.getAttribute('data-category') === selectedCategory) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

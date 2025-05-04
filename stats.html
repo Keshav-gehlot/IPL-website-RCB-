@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics - Royal Challengers Bangalore</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/bento.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Statistics Page Specific Styles */
+        .stats-header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .stats-header h1 {
+            margin-bottom: 15px;
+        }
+        
+        .stats-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .stats-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .stats-tab {
+            padding: 10px 20px;
+            background-color: var(--light-gray);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-tab.active {
+            background-color: var(--primary-gold);
+            color: var(--primary-black);
+        }
+        
+        .stats-tab:hover {
+            background-color: var(--medium-gray);
+        }
+        
+        .stats-content {
+            display: none;
+        }
+        
+        .stats-content.active {
+            display: block;
+        }
+        
+        /* Stats Tables */
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background-color: var(--white);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .stats-table th {
+            background-color: var(--primary-black);
+            color: var(--white);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .stats-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .stats-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .stats-table tr:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .player-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .player-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .highlight-cell {
+            color: var(--primary-red);
+            font-weight: 700;
+        }
+        
+        /* Stats Cards */
+        .stats-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stats-card-header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .stats-card-body {
+            padding: 20px;
+        }
+        
+        /* Charts Section */
+        .charts-section {
+            background-color: var(--light-gray);
+            padding: 80px 0;
+        }
+        
+        .chart-container {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .chart-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary-black);
+            text-align: center;
+        }
+        
+        /* Records Section */
+        .records-section {
+            padding: 80px 0;
+        }
+        
+        .record-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .record-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .record-header {
+            background-color: var(--primary-black);
+            color: var(--white);
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .record-body {
+            padding: 20px;
+        }
+        
+        .record-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .record-info {
+            text-align: center;
+            font-size: 1rem;
+            color: var(--dark-gray);
+        }
+        
+        .record-holder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            gap: 10px;
+        }
+        
+        .record-holder img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .record-holder-name {
+            font-weight: 600;
+            color: var(--primary-black);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .record-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+<script src="scripts/features.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/rcb-logo.png" alt="RCB Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="matches.html">Matches</a></li>
+                    <li><a href="stats.html" class="active">Statistics</a></li>
+                    <li><a href="news.html">News & Media</a></li>
+                    <li><a href="fanzone.html">Fan Zone</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Stats Header Section -->
+        <section class="stats-header">
+            <div class="container">
+                <h1>TEAM STATISTICS</h1>
+                <p>Explore Royal Challengers Bangalore's performance metrics, player statistics, and records throughout IPL history.</p>
+            </div>
+        </section>
+
+        <!-- Stats Tabs Section -->
+        <section class="stats-tabs-section">
+            <div class="container">
+                <div class="stats-tabs">
+                    <button class="stats-tab active" data-tab="batting">Batting</button>
+                    <button class="stats-tab" data-tab="bowling">Bowling</button>
+                    <button class="stats-tab" data-tab="fielding">Fielding</button>
+                </div>
+
+                <div class="stats-content">
+                    <div class="stats-panel active" id="batting">
+                        <div class="stats-grid">
+                            <!-- Batting Stats Cards -->
+                            <div class="stats-card">
+                                <h3>Most Runs</h3>
+                                <div class="stats-list">
+                                    <div class="stats-item">
+                                        <img src="images/virat-kohli.jpg" alt="Virat Kohli">
+                                        <div class="stats-info">
+                                            <h4>Virat Kohli</h4>
+                                            <p>7,263 runs</p>
+                                        </div>
+                                    </div>
+                                    <!-- Add more batting stats items -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-panel" id="bowling">
+                        <div class="stats-grid">
+                            <!-- Bowling Stats Cards -->
+                            <div class="stats-card">
+                                <h3>Most Wickets</h3>
+                                <div class="stats-list">
+                                    <div class="stats-item">
+                                        <img src="images/yuzvendra-chahal.jpg" alt="Yuzvendra Chahal">
+                                        <div class="stats-info">
+                                            <h4>Yuzvendra Chahal</h4>
+                                            <p>139 wickets</p>
+                                        </div>
+                                    </div>
+                                    <!-- Add more bowling stats items -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-panel" id="fielding">
+                        <div class="stats-grid">
+                            <!-- Fielding Stats Cards -->
+                            <div class="stats-card">
+                                <h3>Most Catches</h3>
+                                <div class="stats-list">
+                                    <div class="stats-item">
+                                        <img src="https://picsum.photos/200/200?random=401" alt="AB de Villiers">
+                                        <div class="stats-info">
+                                            <h4>AB de Villiers</h4>
+                                            <p>90 catches</p>
+                                        </div>
+                                    </div>
+                                    <!-- Add more fielding stats items -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="container">
+                <h2 class="section-title">Performance Analysis</h2>
+                <p style="text-align: center; margin-bottom: 40px;">Visual representation of RCB's performance metrics over the years.</p>
+                
+                <div class="bento-grid">
+                    <div class="bento-card bento-card-medium chart-container">
+                        <h3 class="chart-title">Season-wise Win Percentage</h3>
+                        <div class="chart-placeholder" style="height: 300px; background-color: #f9f9f9; display: flex; align-items: center; justify-content: center;">
+                            <p>Chart visualization will appear here</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bento-card bento-card-medium chart-container">
+                        <h3 class="chart-title">Batting vs Bowling Performance</h3>
+                        <div class="chart-placeholder" style="height: 300px; background-color: #f9f9f9; display: flex; align-items: center; justify-content: center;">
+                            <p>Chart visualization will appear here</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bento-card bento-card-wide chart-container">
+                        <h3 class="chart-title">Top Run Scorers Across Seasons</h3>
+                        <div class="chart-placeholder" style="height: 300px; background-color: #f9f9f9; display: flex; align-items: center; justify-content: center;">
+                            <p>Chart visualization will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="images/rcb-logo.png" alt="RCB Logo">
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About RCB</h3>
+                    <ul>
+                        <li><a href="#">Team History</a></li>
+                        <li><a href="#">Management</a></li>
+                        <li><a href="#">Sponsors</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="matches.html">Matches</a></li>
+                        <li><a href="stats.html">Statistics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Fan Zone</h3>
+                    <ul>
+                        <li><a href="#">Membership</a></li>
+                        <li><a href="#">Fan Club</a></li>
+                        <li><a href="#">Merchandise</a></li>
+                        <li><a href="#">Wallpapers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Stadium Info</a></li>
+                        <li><a href="#">Ticket Enquiries</a></li>
+                        <li><a href="#">Media Enquiries</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Royal Challengers Bangalore. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Tab functionality for statistics
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.stats-tab');
+            const tabContents = document.querySelectorAll('.stats-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId + '-stats').classList.add('active');
+                });
+            });
+
+            // Helper to replace chart placeholders by index
+            function replaceChartPlaceholder(index, canvas) {
+                const placeholders = document.querySelectorAll('.chart-placeholder');
+                if (placeholders[index]) {
+                    placeholders[index].replaceWith(canvas);
+                }
+            }
+
+            // Win Percentage Chart
+            const winPercentageCtx = document.createElement('canvas');
+            replaceChartPlaceholder(0, winPercentageCtx);
+            new Chart(winPercentageCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: 'Win Percentage',
+                        data: [45, 52, 48, 55, 58, 62, 65],
+                        borderColor: '#EC1C24',
+                        backgroundColor: 'rgba(236, 28, 36, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) { return value + '%'; }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Batting vs Bowling vs Fielding Performance (Radar)
+            const performanceCtx = document.createElement('canvas');
+            replaceChartPlaceholder(1, performanceCtx);
+            new Chart(performanceCtx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Batting Average', 'Run Rate', 'Boundary %', 'Dot Ball %',
+                        'Economy Rate', 'Wicket Rate', 'Catch %', 'Run Out %', 'Direct Hit %', 'Stumping %'
+                    ],
+                    datasets: [
+                        {
+                            label: 'Batting',
+                            data: [32.5, 8.7, 58, 22, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: 'rgba(236, 28, 36, 0.2)',
+                            borderColor: '#EC1C24',
+                            pointBackgroundColor: '#EC1C24'
+                        },
+                        {
+                            label: 'Bowling',
+                            data: [0, 0, 0, 28, 8.4, 1.6, 0, 0, 0, 0],
+                            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                            borderColor: '#000000',
+                            pointBackgroundColor: '#000000'
+                        },
+                        {
+                            label: 'Fielding',
+                            data: [0, 0, 0, 0, 0, 0, 92, 85, 78, 65],
+                            backgroundColor: 'rgba(255, 193, 7, 0.2)',
+                            borderColor: '#FFC107',
+                            pointBackgroundColor: '#FFC107'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.raw;
+                                    const metric = context.label;
+                                    let unit = '';
+                                    if (metric.includes('%')) unit = '%';
+                                    else if (metric.includes('Rate')) unit = ' per over';
+                                    else if (metric.includes('Average')) unit = ' runs per dismissal';
+                                    return `${label}: ${value}${unit}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { stepSize: 20 }
+                        }
+                    }
+                }
+            });
+
+            // Top Run Scorers Across Seasons (Grouped Bar Chart)
+            const runScorersCtx = document.createElement('canvas');
+            replaceChartPlaceholder(2, runScorersCtx);
+            new Chart(runScorersCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+                    datasets: [
+                        {
+                            label: 'Virat Kohli',
+                            data: [464, 466, 405, 341, 420, 379],
+                            backgroundColor: 'rgba(236, 28, 36, 0.8)',
+                            borderColor: '#EC1C24',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Faf du Plessis',
+                            data: [0, 0, 0, 468, 730, 583],
+                            backgroundColor: 'rgba(236, 28, 36, 0.6)',
+                            borderColor: '#EC1C24',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Glenn Maxwell',
+                            data: [0, 0, 513, 301, 400, 552],
+                            backgroundColor: 'rgba(236, 28, 36, 0.4)',
+                            borderColor: '#EC1C24',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'AB de Villiers',
+                            data: [442, 454, 207, 0, 0, 0],
+                            backgroundColor: 'rgba(236, 28, 36, 0.3)',
+                            borderColor: '#EC1C24',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Dinesh Karthik',
+                            data: [253, 169, 0, 330, 140, 326],
+                            backgroundColor: 'rgba(236, 28, 36, 0.2)',
+                            borderColor: '#EC1C24',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Rajat Patidar',
+                            data: [0, 0, 0, 333, 0, 395],
+                            backgroundColor: 'rgba(236, 28, 36, 0.1)',
+                            borderColor: '#EC1C24',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: {
+                            display: true,
+                            text: 'Top Run Scorers by Season'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const player = context.dataset.label;
+                                    const runs = context.raw;
+                                    const season = context.label;
+                                    let additionalInfo = '';
+                                    if (player === 'Virat Kohli' && season === '2016') additionalInfo = ' (IPL Record: 973 runs)';
+                                    else if (player === 'Faf du Plessis' && season === '2023') additionalInfo = ' (Orange Cap Winner)';
+                                    return `${player}: ${runs} runs${additionalInfo}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Runs' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Season' }
+                        }
+                    }
+                }
+            });
+
+            // Add a new chart for fielding statistics
+            const fieldingCtx = document.createElement('canvas');
+            const fieldingContainer = document.createElement('div');
+            fieldingContainer.className = 'bento-card bento-card-wide chart-container';
+            fieldingContainer.innerHTML = '<h3 class="chart-title">Fielding Performance Analysis</h3>';
+            fieldingContainer.appendChild(fieldingCtx);
+            document.querySelector('.bento-grid').appendChild(fieldingContainer);
+
+            new Chart(fieldingCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Catches', 'Run Outs', 'Direct Hits', 'Stumpings', 'Diving Catches'],
+                    datasets: [{
+                        label: '2023 Season',
+                        data: [45, 12, 8, 5, 15],
+                        backgroundColor: 'rgba(236, 28, 36, 0.8)',
+                        borderColor: '#EC1C24',
+                        borderWidth: 1
+                    }, {
+                        label: '2024 Season',
+                        data: [38, 10, 6, 4, 12],
+                        backgroundColor: 'rgba(236, 28, 36, 0.6)',
+                        borderColor: '#EC1C24',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const season = context.dataset.label;
+                                    const value = context.raw;
+                                    const metric = context.label;
+                                    return `${season}: ${value} ${metric}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Count'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

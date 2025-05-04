@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fan Zone - Royal Challengers Bangalore</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/bento.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Fan Zone Page Specific Styles */
+        .fanzone-header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .fanzone-header h1 {
+            margin-bottom: 15px;
+        }
+        
+        .fanzone-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        /* Hero Section */
+        .fan-hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .fan-hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        
+        .fan-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.8));
+            z-index: 0;
+        }
+        
+        .fan-hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: var(--white);
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .fan-hero-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .fan-hero-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        /* Membership Section */
+        .membership-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .membership-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .membership-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .membership-header {
+            background-color: var(--primary-black);
+            color: var(--white);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .membership-title {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .membership-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-gold);
+        }
+        
+        .membership-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .membership-features {
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .feature-icon {
+            color: var(--primary-red);
+            margin-right: 10px;
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+        
+        .feature-text {
+            flex: 1;
+        }
+        
+        .membership-footer {
+            margin-top: auto;
+        }
+        
+        /* Merchandise Section */
+        .merchandise-section {
+            padding: 80px 0;
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+        
+        .product-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary-black);
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+        }
+        
+        .product-description {
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .product-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Fan Gallery Section */
+        .gallery-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+            cursor: pointer;
+            height: 250px;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+            color: var(--white);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-title {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .gallery-info {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        /* Fan Stories Section */
+        .stories-section {
+            padding: 80px 0;
+        }
+        
+        .story-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .story-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .story-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .story-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--primary-black);
+            flex-grow: 1;
+        }
+        
+        .story-author {
+            display: flex;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info {
+            flex: 1;
+        }
+        
+        .author-name {
+            font-weight: 600;
+            color: var(--primary-black);
+            margin-bottom: 3px;
+        }
+        
+        .author-location {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+        
+        /* Events Section */
+        .events-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .event-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .event-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .event-card:hover .event-image img {
+            transform: scale(1.05);
+        }
+        
+        .event-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .event-date {
+            display: inline-block;
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .event-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary-black);
+        }
+        
+        .event-description {
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .event-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .event-location {
+            display: flex;
+            align-items: center;
+            color: var(--dark-gray);
+        }
+        
+        .event-location i {
+            margin-right: 5px;
+            color: var(--primary-gold);
+        }
+    </style>
+<script src="scripts/features.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/rcb-logo.png" alt="RCB Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="matches.html">Matches</a></li>
+                    <li><a href="stats.html">Statistics</a></li>
+                    <li><a href="news.html">News & Media</a></li>
+                    <li><a href="fanzone.html" class="active">Fan Zone</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Fan Zone Header Section -->
+        <section class="fanzone-header">
+            <div class="container">
+                <h1>FAN ZONE</h1>
+                <p>Join the passionate community of Royal Challengers Bangalore fans and experience the thrill of being part of the RCB family.</p>
+            </div>
+        </section>
+
+        <!-- Hero Section -->
+        <section class="fan-hero">
+            <img src="images/fan1.jpg" alt="RCB Fans" class="fan-hero-image">
+            <div class="fan-hero-overlay"></div>
+            <div class="fan-hero-content">
+                <h2 class="fan-hero-title">We Are RCB</h2>
+                <p class="fan-hero-text">Royal Challengers Bangalore is more than just a cricket team - it's a passion, a community, and a way of life. Join millions of fans worldwide in supporting the bold and fearless spirit of RCB.</p>
+                <a href="#" class="btn btn-primary">Join the Fan Club</a>
+            </div>
+        </section>
+
+        <!-- Membership Section -->
+        <section class="membership-section">
+            <div class="container">
+                <h2 class="section-title">Fan Memberships</h2>
+                <p style="text-align: center; margin-bottom: 40px;">Become an official RCB fan member and enjoy exclusive benefits and experiences.</p>
+                
+                <div class="bento-grid">
+                    <!-- Silver Membership -->
+                    <div class="bento-card bento-card-medium membership-card">
+                        <div class="membership-header">
+                            <h3 class="membership-title">Silver Membership</h3>
+                            <div class="membership-price">₹1,999</div>
+                        </div>
+                        <div class="membership-content">
+                            <div class="membership-features">
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">Official RCB Membership Card</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">10% discount on merchandise</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">Access to members-only content</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">Early access to match tickets</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">Welcome kit with RCB goodies</div>
+                                </div>
+                            </div>
+                            <div class="membership-footer">
+                                <a href="#" class="btn btn-primary btn-block">Join Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gold Membership -->
+                    <div class="bento-card bento-card-medium membership-card">
+                        <div class="membership-header" style="background-color: var(--primary-gold); color: var(--primary-black);">
+                            <h3 class="membership-title">Gold Membership</h3>
+                            <div class="membership-price" style="color: var(--primary-black);">₹4,999</div>
+                        </div>
+                        <div class="membership-content">
+                            <div class="membership-features">
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">All Silver benefits</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">20% discount on merchandise</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">Guaranteed match tickets for home games</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">Exclusive member events with players</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">Personalized RCB jersey</div>
+                                </div>
+                            </div>
+                            <div class="membership-footer">
+                                <a href="#" class="btn btn-primary btn-block">Join Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Platinum Membership -->
+                    <div class="bento-card bento-card-medium membership-card">
+                        <div class="membership-header" style="background-color: var(--primary-red);">
+                            <h3 class="membership-title">Platinum Membership</h3>
+                            <div class="membership-price">₹9,999</div>
+                        </div>
+                        <div class="membership-content">
+                            <div class="membership-features">
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">All Gold benefits</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">30% discount on merchandise</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">Premium seating at home matches</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">Meet & greet with players</div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="feature-text">Stadium tour and practice session access</div>
+                                </div>
+                            </div>
+                            <div class="membership-footer">
+                                <a href="#" class="btn btn-primary btn-block">Join Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Merchandise Section -->
+        <section class="merchandise-section">
+            <div class="container">
+                <h2 class="section-title">Official Merchandise</h2>
+                <p style="text-align: center; margin-bottom: 40px;">Show your support with official RCB merchandise and gear.</p>
+                
+                <div class="bento-grid">
+                    <!-- Product 1 -->
+                    <div class="bento-card bento-card-medium product-card">
+                        <div class="product-image">
+                            <span class="product-badge">New Arrival</span>
+                            <img src="images/jersey.jpg" alt="RCB Jersey">
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">RCB Official Match Jersey 2025</h3>
+                            <div class="product-price">₹1,999</div>
+                            <p class="product-description">Official Royal Challengers Bangalore match jersey for the 2025 IPL season, featuring the team's iconic red and black colors.</p>
+                            <div class="product-footer">
+                                <a href="#" class="btn btn-primary">Buy Now</a>
+                                <a href="#" class="btn btn-outline">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="bento-card bento-card-medium product-card">
+                        <div class="product-image">
+                            <img src="images/cap.jpg" alt="RCB Cap">
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">RCB Snapback Cap</h3>
+                            <div class="product-price">₹899</div>
+                            <p class="product-description">Stylish RCB snapback cap featuring the team logo, perfect for showing your support at matches or casual wear.</p>
+                            <div class="product-footer">
+                                <a href="#" class="btn btn-primary">Buy Now</a>
+                                <a href="#" class="btn btn-outline">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="bento-card bento-card-medium product-card">
+                        <div class="product-image">
+                            <img src="images/fan1.jpg" alt="RCB T-Shirt">
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">RCB Fan T-Shirt</h3>
+                            <div class="product-price">₹799</div>
+                            <p class="product-description">Comfortable cotton t-shirt for RCB fans, featuring team colors and logo. Available in various sizes.</p>
+                            <div class="product-footer">
+                                <a href="#" class="btn btn-primary">Buy Now</a>
+                                <a href="#" class="btn btn-outline">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="bento-card bento-card-medium product-card">
+                        <div class="product-image">
+                            <span class="product-badge">Limited Edition</span>
+                            <img src="images/fan2.jpg" alt="Signed Bat">
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Team Signed Cricket Bat</h3>
+                            <div class="product-price">₹12,999</div>
+                            <p class="product-description">Limited edition cricket bat signed by the entire RCB squad. A collector's item for true fans.</p>
+                            <div class="product-footer">
+                                <a href="#" class="btn btn-primary">Buy Now</a>
+                                <a href="#" class="btn btn-outline">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center" style="margin-top: 40px;">
+                    <a href="#" class="btn btn-primary">View All Merchandise</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fan Gallery Section -->
+        <section class="gallery-section">
+            <div class="container">
+                <h2 class="section-title">Fan Gallery</h2>
+                <p style="text-align: center; margin-bottom: 40px;">Moments captured by our passionate fans during matches and events.</p>
+                
+                <div class="gallery-grid">
+                    <!-- Gallery Item 1 -->
+                    <div class="gallery-item">
+                        <img src="images/fans.jpg" alt="RCB Fans" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <h3>RCB Fans</h3>
+                            <p>Our amazing supporters at the stadium</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div class="gallery-item">
+                        <img src="images/jersey.jpg" alt="RCB Jersey" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <h3>RCB Jersey</h3>
+                            <p>Official team merchandise</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div class="gallery-item">
+                        <img src="images/cap.jpg" alt="RCB Cap" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <h3>RCB Cap</h3>
+                            <p>Show your support with our caps</p>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 4 -->
+                    <div class="gallery-item">
+                        <img src="images/fan1.jpg" alt="RCB T-Shirt" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <h3>RCB T-Shirt</h3>
+                            <p>Comfortable fan wear</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center" style="margin-top: 40px;">
+                    <a href="#" class="btn btn-primary">Submit Your Photos</a>
+                    <a href="#" class="btn btn-outline" style="margin-left: 15px;">View More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fan Stories Section -->
+        <section class="stories-section">
+            <div class="container">
+                <h2 class="section-title">Fan Stories</h2>
+                <p style="text-align: center; margin-bottom: 40px;">Hear from our passionate fans about their experiences supporting RCB.</p>
+                
+                <div class="bento-grid">
+                    <!-- Story 1 -->
+                    <div class="bento-card bento-card-medium story-card">
+                        <div class="story-content">
+                            <p class="story-quote">"I've been an RCB fan since the first IPL season. The energy at Chinnaswamy Stadium is unmatched - it's like being part of one big family. My most memorable moment was watching Kohli's century against PBKS live at the stadium."</p>
+                            <div class="story-author">
+                                <div class="author-image">
+                                    <img src="images/fan1.jpg" alt="Fan">
+                                </div>
+                                <div class="author-info">
+                                    <div class="author-name">Rajesh Kumar</div>
+                                    <div class="author-location">Bengaluru, India</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Story 2 -->
+                    <div class="bento-card bento-card-medium story-card">
+                        <div class="story-content">
+                            <p class="story-quote">"I traveled all the way from Australia to watch RCB play. The atmosphere was electric, and the fans were so welcoming. It was worth every penny to see Maxwell play for RCB in person!"</p>
+                            <div class="story-author">
+                                <div class="author-image">
+                                    <img src="images/fan2.jpg" alt="Fan">
+                                </div>
+                                <div class="author-info">
+                                    <div class="author-name">Sarah Thompson</div>
+                                    <div class="author-location">Melbourne, Australia</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Story 3 -->
+                    <div class="bento-card bento-card-medium story-card">
+                        <div class="story-content">
+                            <p class="story-quote">"Being part of the RCB Fan Club has connected me with so many like-minded people. We meet regularly to watch matches together, and the friendships I've formed through our shared love for RCB are priceless."</p>
+                            <div class="story-author">
+                                <div class="author-image">
+                                    <img src="images/fan3.jpg" alt="Fan">
+                                </div>
+                                <div class="author-info">
+                                    <div class="author-name">Priya Sharma</div>
+                                    <div class="author-location">Mumbai, India</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center" style="margin-top: 40px;">
+                    <a href="#" class="btn btn-primary">Share Your Story</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section class="events-section">
+            <div class="container">
+                <h2 class="section-title">Upcoming Fan Events</h2>
+                <p style="text-align: center; margin-bottom: 40px;">Join us at these exciting events and connect with fellow RCB fans.</p>
+                
+                <div class="bento-grid">
+                    <!-- Event 1 -->
+                    <div class="bento-card bento-card-medium event-card">
+                        <div class="event-image">
+                            <img src="https://picsum.photos/400/300?random=201" alt="Fan Meet & Greet">
+                        </div>
+                        <div class="event-content">
+                            <span class="event-date">May 10, 2023</span>
+                            <h3 class="event-title">Fan Meet & Greet with Players</h3>
+                            <p class="event-description">Get a chance to meet your favorite RCB players, take photos, and get autographs at this exclusive fan event.</p>
+                            <div class="event-footer">
+                                <div class="event-location"><i class="fas fa-map-marker-alt"></i> M. Chinnaswamy Stadium</div>
+                                <a href="#" class="btn btn-primary btn-small">Register</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 2 -->
+                    <div class="bento-card bento-card-medium event-card">
+                        <div class="event-image">
+                            <img src="https://picsum.photos/400/300?random=202" alt="Screening Party">
+                        </div>
+                        <div class="event-content">
+                            <span class="event-date">May 15, 2023</span>
+                            <h3 class="event-title">RCB vs CSK Screening Party</h3>
+                            <p class="event-description">Join fellow fans for a live screening of the much-anticipated match against CSK with food, drinks, and exciting giveaways.</p>
+                            <div class="event-footer">
+                                <div class="event-location"><i class="fas fa-map-marker-alt"></i> Phoenix Mall, Bengaluru</div>
+                                <a href="#" class="btn btn-primary btn-small">Register</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 3 -->
+                    <div class="bento-card bento-card-medium event-card">
+                        <div class="event-image">
+                            <img src="https://picsum.photos/400/300?random=203" alt="Fan Club Meeting">
+                        </div>
+                        <div class="event-content">
+                            <span class="event-date">May 20, 2023</span>
+                            <h3 class="event-title">RCB Fan Club Monthly Meetup</h3>
+                            <p class="event-description">Monthly gathering of RCB Fan Club members to discuss team performance, upcoming matches, and plan community activities.</p>
+                            <div class="event-footer">
+                                <div class="event-location"><i class="fas fa-map-marker-alt"></i> Cubbon Park, Bengaluru</div>
+                                <a href="#" class="btn btn-primary btn-small">Register</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center" style="margin-top: 40px;">
+                    <a href="#" class="btn btn-primary">View All Events</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="images/rcb-logo.png" alt="RCB Logo">
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About RCB</h3>
+                    <ul>
+                        <li><a href="#">Team History</a></li>
+                        <li><a href="#">Management</a></li>
+                        <li><a href="#">Sponsors</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="matches.html">Matches</a></li>
+                        <li><a href="stats.html">Statistics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Fan Zone</h3>
+                    <ul>
+                        <li><a href="#">Membership</a></li>
+                        <li><a href="#">Fan Club</a></li>
+                        <li><a href="#">Merchandise</a></li>
+                        <li><a href="#">Wallpapers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Stadium Info</a></li>
+                        <li><a href="#">Ticket Enquiries</a></li>
+                        <li><a href="#">Media Enquiries</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Royal Challengers Bangalore. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption"></div>
+    </div>
+</body>
+</html>

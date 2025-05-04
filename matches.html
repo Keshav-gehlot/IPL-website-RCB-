@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matches - Royal Challengers Bangalore</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/bento.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Matches Page Specific Styles */
+        .matches-header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .matches-header h1 {
+            margin-bottom: 15px;
+        }
+        
+        .matches-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .matches-filter {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background-color: var(--light-gray);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary-gold);
+            color: var(--primary-black);
+        }
+        
+        .filter-btn:hover {
+            background-color: var(--medium-gray);
+        }
+        
+        .match-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            background-color: var(--white);
+        }
+        
+        .match-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .match-header {
+            background-color: var(--primary-black);
+            color: var(--white);
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .match-date {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .match-venue {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .match-teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px;
+        }
+        
+        .team {
+            text-align: center;
+            width: 40%;
+        }
+        
+        .team img {
+            height: 80px;
+            margin-bottom: 10px;
+        }
+        
+        .team h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .vs {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+        
+        .match-info {
+            padding: 0 25px 25px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .match-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .status-upcoming {
+            background-color: var(--primary-gold);
+            color: var(--primary-black);
+        }
+        
+        .status-completed {
+            background-color: var(--primary-red);
+            color: var(--white);
+        }
+        
+        .match-result {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .match-highlights {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .highlight-item {
+            text-align: center;
+        }
+        
+        .highlight-label {
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+        }
+        
+        .highlight-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-black);
+        }
+        
+        .season-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .season-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--primary-black);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .match-teams {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .team {
+                width: 100%;
+            }
+            
+            .vs {
+                margin: 10px 0;
+            }
+        }
+    </style>
+<script src="scripts/features.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/rcb-logo.png" alt="RCB Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="matches.html" class="active">Matches</a></li>
+                    <li><a href="stats.html">Statistics</a></li>
+                    <li><a href="news.html">News & Media</a></li>
+                    <li><a href="fanzone.html">Fan Zone</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Matches Header Section -->
+        <section class="matches-header">
+            <div class="container">
+                <h1>RCB MATCHES</h1>
+                <p>Follow Royal Challengers Bangalore's journey through the Indian Premier League with upcoming fixtures and past results.</p>
+            </div>
+        </section>
+
+        <!-- Matches Filter Section -->
+        <section class="matches-filter-section">
+            <div class="container">
+                <div class="matches-filter">
+                    <div class="filter-btn active" data-filter="all">All Matches</div>
+                    <div class="filter-btn" data-filter="upcoming">Upcoming</div>
+                    <div class="filter-btn" data-filter="completed">Completed</div>
+                    <div class="filter-btn" data-filter="home">Home</div>
+                    <div class="filter-btn" data-filter="away">Away</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Matches Grid Section -->
+        <section class="matches-grid-section">
+            <div class="container">
+                <div class="bento-grid">
+                    <!-- Upcoming Match 1 -->
+                    <div class="bento-card bento-card-medium match-card" data-category="upcoming home">
+                        <div class="match-header">
+                            <div class="match-date">May 5, 2025 | 7:30 PM IST</div>
+                            <div class="match-venue">M. Chinnaswamy Stadium, Bengaluru</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="images/rcb-logo.png" alt="RCB Logo">
+                                <h3>RCB</h3>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <img src="images/csk-logo.png" alt="CSK Logo">
+                                <h3>CSK</h3>
+                            </div>
+                        </div>
+                        <div class="match-info">
+                            <div class="match-status status-upcoming">Upcoming</div>
+                            <a href="#" class="btn btn-primary btn-small">Match Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Match 2 -->
+                    <div class="bento-card bento-card-medium match-card" data-category="upcoming away">
+                        <div class="match-header">
+                            <div class="match-date">May 10, 2025 | 7:30 PM IST</div>
+                            <div class="match-venue">Wankhede Stadium, Mumbai</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="images/mi-logo.png" alt="MI Logo">
+                                <h3>MI</h3>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <img src="images/rcb-logo.png" alt="RCB Logo">
+                                <h3>RCB</h3>
+                            </div>
+                        </div>
+                        <div class="match-info">
+                            <div class="match-status status-upcoming">Upcoming</div>
+                            <a href="#" class="btn btn-primary btn-small">Match Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Completed Match 1 -->
+                    <div class="bento-card bento-card-large match-card" data-category="completed home">
+                        <div class="match-header">
+                            <div class="match-date">April 25, 2025 | 7:30 PM IST</div>
+                            <div class="match-venue">M. Chinnaswamy Stadium, Bengaluru</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="images/rcb-logo.png" alt="RCB Logo">
+                                <h3>RCB</h3>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <img src="images/kkr-logo.png" alt="KKR Logo">
+                                <h3>KKR</h3>
+                            </div>
+                        </div>
+                        <div class="match-info">
+                            <div class="match-status status-completed">Completed</div>
+                            <div class="match-result">RCB won by 8 wickets</div>
+                            <div class="match-highlights">
+                                <div class="highlight-item">
+                                    <div class="highlight-value">Kohli</div>
+                                    <div class="highlight-label">Player of the Match</div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-value">89(47)</div>
+                                    <div class="highlight-label">Top Score</div>
+                                </div>
+                                <div class="highlight-item">
+                                    <div class="highlight-value">3/24</div>
+                                    <div class="highlight-label">Best Bowling</div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn btn-primary btn-small" style="margin-top: 15px;">Match Report</a>
+                        </div>
+                    </div>
+
+                    <!-- Completed Match 2 -->
+                    <div class="bento-card bento-card-medium match-card" data-category="completed away">
+                        <div class="match-header">
+                            <div class="match-date">April 18, 2023 | 7:30 PM IST</div>
+                            <div class="match-venue">Narendra Modi Stadium, Ahmedabad</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="images/gt-logo.png" alt="GT Logo">
+                                <h3>GT</h3>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <img src="images/rcb-logo.png" alt="RCB Logo">
+                                <h3>RCB</h3>
+                            </div>
+                        </div>
+                        <div class="match-info">
+                            <div class="match-status status-completed">Completed</div>
+                            <div class="match-result">GT won by 6 runs</div>
+                            <a href="#" class="btn btn-primary btn-small">Match Report</a>
+                        </div>
+                    </div>
+
+                    <!-- Completed Match 3 -->
+                    <div class="bento-card bento-card-medium match-card" data-category="completed home">
+                        <div class="match-header">
+                            <div class="match-date">April 10, 2023 | 7:30 PM IST</div>
+                            <div class="match-venue">M. Chinnaswamy Stadium, Bengaluru</div>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <img src="images/rcb-logo.png" alt="RCB Logo">
+                                <h3>RCB</h3>
+                            </div>
+                            <div class="vs">VS</div>
+                            <div class="team">
+                                <img src="images/lsg-logo.png" alt="LSG Logo">
+                                <h3>LSG</h3>
+                            </div>
+                        </div>
+                        <div class="match-info">
+                            <div class="match-status status-completed">Completed</div>
+                            <div class="match-result">RCB won by 18 runs</div>
+                            <a href="#" class="btn btn-primary btn-small">Match Report</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Season Stats Section -->
+        <section class="season-section">
+            <div class="container">
+                <h2 class="section-title">Season Statistics</h2>
+                <div class="season-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">14</div>
+                        <div class="stat-label">Matches Played</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Wins</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Losses</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Position</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="images/rcb-logo.png" alt="RCB Logo">
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About RCB</h3>
+                    <ul>
+                        <li><a href="#">Team History</a></li>
+                        <li><a href="#">Management</a></li>
+                        <li><a href="#">Sponsors</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="matches.html">Matches</a></li>
+                        <li><a href="stats.html">Statistics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Fan Zone</h3>
+                    <ul>
+                        <li><a href="#">Membership</a></li>
+                        <li><a href="#">Fan Club</a></li>
+                        <li><a href="#">Merchandise</a></li>
+                        <li><a href="#">Wallpapers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Stadium Info</a></li>
+                        <li><a href="#">Ticket Enquiries</a></li>
+                        <li><a href="#">Media Enquiries</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Royal Challengers Bangalore. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script>
+        // Filter functionality for matches
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const matchCards = document.querySelectorAll('.match-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get filter value
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Show/hide match cards based on filter
+                    matchCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category').includes(filterValue)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

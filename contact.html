@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Royal Challengers Bangalore</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/bento.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Contact Page Specific Styles */
+        .contact-header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .contact-header h1 {
+            margin-bottom: 15px;
+        }
+        
+        .contact-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        /* Contact Info Section */
+        .contact-info-section {
+            padding: 80px 0;
+        }
+        
+        .contact-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary-red);
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover .contact-icon {
+            background-color: var(--primary-red);
+            color: var(--white);
+        }
+        
+        .contact-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-black);
+        }
+        
+        .contact-details {
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .contact-details a {
+            color: var(--primary-red);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-details a:hover {
+            color: var(--primary-black);
+        }
+        
+        /* Contact Form Section */
+        .contact-form-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .contact-form-container {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-black);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 6px;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-red);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(218, 24, 24, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .form-check-input {
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .form-check-label {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+        
+        /* Map Section */
+        .map-section {
+            padding: 80px 0;
+        }
+        
+        .map-container {
+            height: 450px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+        
+        .accordion {
+            margin-top: 40px;
+        }
+        
+        .accordion-item {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .accordion-header {
+            padding: 20px;
+            background-color: var(--white);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-header:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .accordion-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-black);
+        }
+        
+        .accordion-icon {
+            color: var(--primary-red);
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .accordion-content p {
+            padding-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        .accordion-item.active .accordion-header {
+            background-color: var(--light-gray);
+        }
+        
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        
+        .accordion-item.active .accordion-content {
+            max-height: 300px;
+            padding-top: 10px;
+        }
+    </style>
+<script src="scripts/features.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="images/rcb-logo.png" alt="RCB Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="matches.html">Matches</a></li>
+                    <li><a href="stats.html">Statistics</a></li>
+                    <li><a href="news.html">News & Media</a></li>
+                    <li><a href="fanzone.html">Fan Zone</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Contact Header Section -->
+        <section class="contact-header">
+            <div class="container">
+                <h1>CONTACT US</h1>
+                <p>Get in touch with Royal Challengers Bangalore for inquiries, feedback, or support. We're here to help!</p>
+            </div>
+        </section>
+
+        <!-- Contact Info Section -->
+        <section class="contact-info-section">
+            <div class="container">
+                <div class="bento-grid">
+                    <!-- General Inquiries -->
+                    <div class="bento-card bento-card-medium contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="contact-title">General Inquiries</h3>
+                        <div class="contact-details">
+                            <p>For general questions and information about RCB.</p>
+                            <p><a href="mailto:info@rcbteam.com">info@rcbteam.com</a></p>
+                            <p><a href="tel:+918012345678">+91 80 1234 5678</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Ticket Support -->
+                    <div class="bento-card bento-card-medium contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <h3 class="contact-title">Ticket Support</h3>
+                        <div class="contact-details">
+                            <p>For inquiries related to match tickets and bookings.</p>
+                            <p><a href="mailto:tickets@rcbteam.com">tickets@rcbteam.com</a></p>
+                            <p><a href="tel:+918012345679">+91 80 1234 5679</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Media Inquiries -->
+                    <div class="bento-card bento-card-medium contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h3 class="contact-title">Media Inquiries</h3>
+                        <div class="contact-details">
+                            <p>For press and media related inquiries.</p>
+                            <p><a href="mailto:media@rcbteam.com">media@rcbteam.com</a></p>
+                            <p><a href="tel:+918012345680">+91 80 1234 5680</a></p>
+                        </div>
+                    </div>
+
+                    <!-- Corporate Partnerships -->
+                    <div class="bento-card bento-card-medium contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="contact-title">Corporate Partnerships</h3>
+                        <div class="contact-details">
+                            <p>For sponsorship and partnership opportunities.</p>
+                            <p><a href="mailto:partnerships@rcbteam.com">partnerships@rcbteam.com</a></p>
+                            <p><a href="tel:+918012345681">+91 80 1234 5681</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section class="contact-form-section">
+            <div class="container">
+                <h2 class="section-title">Send Us a Message</h2>
+                <div class="row">
+                    <div class="contact-form-container">
+                        <div class="contact-form">
+                            <h2>Get in Touch</h2>
+                            <form id="contactForm">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                    <span class="error-message" id="nameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" required>
+                                    <span class="error-message" id="emailError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject">Subject</label>
+                                    <input type="text" id="subject" name="subject" required>
+                                    <span class="error-message" id="subjectError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" name="message" rows="5" required></textarea>
+                                    <span class="error-message" id="messageError"></span>
+                                </div>
+                                <button type="submit" class="submit-btn">Send Message</button>
+                            </form>
+                            <div id="formSuccess" class="success-message"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="container">
+                <h2 class="section-title">Visit Us</h2>
+                <p style="text-align: center; margin-bottom: 40px;">Find us at the iconic M. Chinnaswamy Stadium in Bengaluru, India.</p>
+                
+                <div class="map-container">
+                    <!-- In a real implementation, this would be replaced with an actual Google Maps embed -->
+                    <div class="map-placeholder">
+                        <p>Map of M. Chinnaswamy Stadium, Bengaluru</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <h3>M. Chinnaswamy Stadium</h3>
+                    <p>Mahatma Gandhi Road, Bengaluru, Karnataka 560001, India</p>
+                    <a href="#" class="btn btn-outline" style="margin-top: 15px;">Get Directions</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="accordion">
+                    <!-- FAQ Item 1 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-title">How can I purchase tickets for RCB matches?</div>
+                            <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Tickets for RCB home matches can be purchased through our official website or authorized ticketing partners. RCB Fan Club members get early access to ticket sales. For group bookings or corporate boxes, please contact our ticket support team.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-title">How do I join the RCB Fan Club?</div>
+                            <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="accordion-content">
+                            <p>You can join the RCB Fan Club by visiting the Fan Zone section of our website and selecting a membership tier that suits you. Membership benefits include exclusive merchandise, early access to tickets, and special events with players.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-title">Where can I purchase official RCB merchandise?</div>
+                            <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Official RCB merchandise is available through our online store, at the M. Chinnaswamy Stadium during match days, and at select retail partners across India. All authentic merchandise features official RCB hologram tags.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-title">How can I apply for trials or selection camps for RCB?</div>
+                            <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="accordion-content">
+                            <p>RCB conducts talent scouting and selection camps periodically. Information about upcoming trials is announced on our official website and social media channels. For professional cricketers, please have your cricket association or agent contact our talent acquisition team.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <div class="accordion-title">How can I request player appearances or interviews?</div>
+                            <div class="accordion-icon"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                        <div class="accordion-content">
+                            <p>For player appearances, interviews, or media requests, please contact our media relations team with details of your request. Please note that player availability is subject to team schedules and commitments, especially during the IPL season.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="images/rcb-logo.png" alt="RCB Logo">
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About RCB</h3>
+                    <ul>
+                        <li><a href="#">Team History</a></li>
+                        <li><a href="#">Management</a></li>
+                        <li><a href="#">Sponsors</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="team.html">Team</a></li>
+                        <li><a href="matches.html">Matches</a></li>
+                        <li><a href="stats.html">Statistics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Fan Zone</h3>
+                    <ul>
+                        <li><a href="#">Membership</a></li>
+                        <li><a href="#">Fan Club</a></li>
+                        <li><a href="#">Merchandise</a></li>
+                        <li><a href="#">Wallpapers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Stadium Info</a></li>
+                        <li><a href="#">Ticket Enquiries</a></li>
+                        <li><a href="#">Media Enquiries</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Royal Challengers Bangalore. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script>
+        // Accordion functionality for FAQs
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                
+                header.addEventListener('click', function() {
+                    // Toggle active class on clicked item
+                    item.classList.toggle('active');
+                    
+                    // Close other accordion items
+                    accordionItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
